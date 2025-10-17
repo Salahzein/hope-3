@@ -70,15 +70,17 @@ export default function Login() {
         }),
       })
       
-      const data: { user: { email: string; name?: string }; access_token: string } = await response.json()
+      const data = await response.json()
       
       if (!response.ok) {
         throw new Error(data.detail || 'Invalid email or password')
       }
       
+      const userData: { user: { email: string; name?: string }; access_token: string } = data
+      
       // Store user data and token
-      localStorage.setItem('user', JSON.stringify(data.user))
-      localStorage.setItem('token', data.access_token)
+      localStorage.setItem('user', JSON.stringify(userData.user))
+      localStorage.setItem('token', userData.access_token)
       
       // Redirect to dashboard on success
       window.location.href = '/dashboard'
