@@ -34,7 +34,7 @@ export default function Login() {
       // Check if admin credentials
       if (formData.email === 'szzein2005@gmail.com') {
         // Try admin login
-        const response = await fetch('https://hope-2-fa3m.onrender.com/api/auth/admin/login', {
+        const response = await fetch('https://hope-3.onrender.com/api/auth/admin/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -45,7 +45,7 @@ export default function Login() {
           }),
         })
         
-        const data: { admin: any; access_token: string } = await response.json()
+        const data: { admin: { email: string; name?: string }; access_token: string } = await response.json()
         
         if (response.ok) {
           // Store admin data and token
@@ -59,7 +59,7 @@ export default function Login() {
       }
 
       // Try regular user login
-      const response = await fetch('https://hope-2-fa3m.onrender.com/api/auth/login', {
+      const response = await fetch('https://hope-3.onrender.com/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -70,7 +70,7 @@ export default function Login() {
         }),
       })
       
-      const data = await response.json()
+      const data: { user: { email: string; name?: string }; access_token: string } = await response.json()
       
       if (!response.ok) {
         throw new Error(data.detail || 'Invalid email or password')
